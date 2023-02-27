@@ -28,7 +28,12 @@
 
 `timescale 1 ns/10 ps
 
-module tb_axis;
+module tb_axis #(
+  parameter IN_FILE_NAME = in.bin,
+  parameter OUT_FILE_NAME = out.bin,
+  parameter RAND_READY = 0,
+  parameter FIFO_DEPTH = 8
+  )();
   //parameter or local param bus, user and dest width? and files as well? 
   
   localparam BUS_WIDTH  = 2;
@@ -85,7 +90,7 @@ module tb_axis;
     .BUS_WIDTH(BUS_WIDTH),
     .USER_WIDTH(USER_WIDTH),
     .DEST_WIDTH(DEST_WIDTH),
-    .FILE("in.bin")
+    .FILE(IN_FILE_NAME)
   ) slave_axis_stim (
     // output to slave
     .m_axis_aclk(tb_stim_clk),
@@ -100,7 +105,7 @@ module tb_axis;
   );
   
   axis_tiny_fifo #(
-    .FIFO_DEPTH(8),
+    .FIFO_DEPTH(FIFO_DEPTH),
     .BUS_WIDTH(BUS_WIDTH)
   ) dut (
     // input
@@ -121,7 +126,8 @@ module tb_axis;
     .BUS_WIDTH(BUS_WIDTH),
     .USER_WIDTH(USER_WIDTH),
     .DEST_WIDTH(DEST_WIDTH),
-    .FILE("out.bin")
+    .RAND_READY(RAND_READY),
+    .FILE(OUT_FILE_NAME)
   ) master_axis_stim (
     // write
     .s_axis_aclk(tb_stim_clk),
