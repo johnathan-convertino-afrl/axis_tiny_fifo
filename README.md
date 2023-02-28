@@ -1,5 +1,5 @@
 # UTIL AXIS TINY FIFO
-## Simple single clock fifo
+### Simple single clock fifo
 ---
 
    author: Jay Convertino   
@@ -21,6 +21,7 @@
 #### Simulation
   - AFRL:simulation:axis_stimulator
   - AFRL:simulation:clock_stimulator
+  - AFRL:utility:sim_helper
 
 ### IP USAGE
 #### INSTRUCTIONS
@@ -45,5 +46,14 @@ the core will build up data till it is full. All data will have a latency of the
 ### fusesoc
 
 * fusesoc_info.core created.
-* Simulation uses icarus to run data through the core.
+* Simulation uses icarus to run data through the core. Verification added.
 
+#### TARGETS
+
+* RUN WITH: (fusesoc run --target=sim VENDER:CORE:NAME:VERSION)
+  - default (for IP integration builds)
+  - sim
+  - sim_rand_data
+  - sim_rand_ready_rand_data
+  - sim_8bit_count_data
+  - sim_rand_ready_8bit_count_data
