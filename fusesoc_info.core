@@ -11,7 +11,7 @@ filesets:
   tb:
     files:
       - tb/tb_axis.v  : { file_type: verilogSource }
-    
+
   dep:
     depend:
       - AFRL:utility:helper:1.0.0
@@ -24,6 +24,7 @@ filesets:
     
 targets:
   default: &default
+    toplevel: axis_tiny_fifo
     filesets: [src, dep]
     
   sim: &sim
