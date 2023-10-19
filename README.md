@@ -1,4 +1,4 @@
-# UTIL AXIS TINY FIFO
+# AXIS TINY FIFO
 ### Simple single clock fifo
 ---
 
@@ -37,7 +37,7 @@ the core will build up data till it is full. All data will have a latency of the
 ### COMPONENTS
 #### SRC
 
-* util_axis_tiny_fifo.v
+* axis_tiny_fifo.v
   
 #### TB
 
