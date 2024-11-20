@@ -1,5 +1,8 @@
 # AXIS TINY FIFO
 ### Simple single clock fifo
+
+![image](docs/manual/img/AFRL.png)
+
 ---
 
    author: Jay Convertino   
@@ -19,7 +22,13 @@
 #### Previous
   - none
 
-### Dependencies
+### DOCUMENTATION
+  For detailed usage information, please navigate to one of the following sources. They are the same, just in a different format.
+
+  - [axis_tiny_fifo.pdf](docs/manual/axis_tiny_fifo.pdf)
+  - [github page](https://johnathan-convertino-afrl.github.io/axis_tiny_fifo/)
+
+### DEPENDENCIES
 #### Build
   - AFRL:utility:helper:1.0.0
   
@@ -28,14 +37,7 @@
   - AFRL:simulation:clock_stimulator
   - AFRL:utility:sim_helper
 
-### IP USAGE
-#### INSTRUCTIONS
-
-Pipeline method axis fifo. This fifo uses a pipeline to create a fifo. Meaning  
-it has a latency the size of the depth. If the output receiving core is not ready  
-the core will build up data till it is full. All data will have a latency of the depth.   
-
-#### PARAMETERS
+### PARAMETERS
 * FIFO_DEPTH : DEFAULT = 4 : Set the depth of the single clock fifo (number of words the size of width).
 * BUS_WIDTH  : DEFAULT = 8 : Set the data width of the fifo in bytes.
 
@@ -48,12 +50,12 @@ the core will build up data till it is full. All data will have a latency of the
 
 * tb_fifo.v
   
-### fusesoc
+### FUSESOC
 
 * fusesoc_info.core created.
 * Simulation uses icarus to run data through the core. Verification added.
 
-#### TARGETS
+#### Targets
 
 * RUN WITH: (fusesoc run --target=sim VENDER:CORE:NAME:VERSION)
   - default (for IP integration builds)
