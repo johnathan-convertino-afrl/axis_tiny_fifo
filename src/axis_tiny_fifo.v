@@ -90,7 +90,7 @@ module axis_tiny_fifo #(
   
   // var: s_axis_tready
   // If any valid is 0, we are ready for data
-  assign s_axis_tready = ~&reg_valid_buffer || m_axis_tready;
+  assign s_axis_tready = (~&reg_valid_buffer || m_axis_tready) & arstn;
   
   // var: m_axis_tdata
   // assign output data as soon as its ready
