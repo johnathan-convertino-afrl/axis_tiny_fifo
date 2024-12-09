@@ -14,8 +14,8 @@ filesets:
 
   tb_cocotb:
     files:
-      - tb/tb_axis_tiny_fifo_cocotb.v : { file_type: verilogSource }
-      - tb/tb_axis_tiny_fifo.py : {file_type : user, copyto : .}
+      - tb/tb_cocotb.py : {file_type : user, copyto : .}
+      - tb/tb_cocotb.v : { file_type: verilogSource }
 
   dep:
     depend:
@@ -85,15 +85,15 @@ targets:
 
   sim_cocotb:
     <<: *default
-    description: Cocotb unit test
+    description: Cocotb unit tests
     flow: sim
     flow_options:
       tool: icarus
-      cocotb_module: tb_axis_tiny_fifo
+      cocotb_module: tb_cocotb
       timescale: 1ns/1ns
       vcs_options: [-timescale=1ns/1ns]
     filesets_append: [tb_cocotb]
-    toplevel: tb_axis_tiny_fifo_cocotb
+    toplevel: tb_cocotb
     parameters:
       - FIFO_DEPTH
       - BUS_WIDTH
