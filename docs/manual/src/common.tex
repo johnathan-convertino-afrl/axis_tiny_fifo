@@ -136,7 +136,7 @@ Then you must use the cocotb sim target. In this case it is sim\_cocotb. This ta
 
 The following is an example command to run through various parameters without typing them one by one.
 \begin{lstlisting}[language=bash]
-  $ for i in {1..32}; do fusesoc run --target sim_cocotb AFRL:buffer:axis_tiny_fifo:1.0.0 --BUS_WIDTH=$i --FIFO_DEPTH=$(shuf -i 1-32 -n 1); done
+  $ for i in {1..32}; do sleep 5; export RY=$(($RANDOM%32+1)); fusesoc run --target sim_cocotb AFRL:buffer:axis_tiny_fifo:1.0.0 --BUS_WIDTH=$i --FIFO_DEPTH=$RY; echo "BUS WIDTH:" $i "FIFO DEPTH:" $RY; done
 \end{lstlisting}
 
 \newpage
