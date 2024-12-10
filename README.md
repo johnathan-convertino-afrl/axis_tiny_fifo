@@ -48,7 +48,9 @@
   
 #### TB
 
-* tb_fifo.v
+* tb_axis.v
+* tb_cocotb.v
+* tb_cocotb.py
   
 ### FUSESOC
 
