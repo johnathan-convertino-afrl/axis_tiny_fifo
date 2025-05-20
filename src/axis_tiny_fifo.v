@@ -84,7 +84,7 @@ module axis_tiny_fifo #(
   reg [clogb2(FIFO_DEPTH):0] index_check;
   
   //buffer
-  reg [(BUS_WIDTH*8)-1:0] reg_data_buffer[FIFO_DEPTH-1:0];
+  reg [(BUS_WIDTH*8)-1:0] reg_data_buffer[FIFO_DEPTH];
   reg [FIFO_DEPTH-1:0]    reg_valid_buffer  = 0;
   reg [FIFO_DEPTH-1:0]    reg_last_buffer   = 0;
   
