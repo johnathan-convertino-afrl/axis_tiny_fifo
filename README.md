@@ -5,14 +5,19 @@
 
 ---
 
-   author: Jay Convertino   
+  author: Jay Convertino   
+  
+  date: 2021.06.02  
+  
+  details: Simple axis single clock pipeline fifo.  
+  
+  license: MIT   
    
-   date: 2021.06.02  
-   
-   details: Simple axis single clock pipeline fifo.  
-   
-   license: MIT   
-   
+  Actions:  
+
+  [![Lint Status](../../actions/workflows/lint.yml/badge.svg)](../../actions)  
+  [![Manual Status](../../actions/workflows/manual.yml/badge.svg)](../../actions)  
+  
 ---
 
 ### Version

@@ -6,7 +6,7 @@
 // date:    2021/06/04
 //
 // about:   Brief
-// AXIS TINY FIFO
+// AXIS TINY FIFO, uses combinatorial logic to provide back pressure.
 //
 // license: License MIT
 // Copyright 2021 Jay Convertino
