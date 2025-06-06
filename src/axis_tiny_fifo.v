@@ -31,7 +31,7 @@
 //
 //******************************************************************************
 
-`timescale 1ns/100ps
+`timescale 1ns / 100ps
 
 /*
  * Module: axis_tiny_fifo
@@ -62,54 +62,53 @@
 module axis_tiny_fifo #(
     parameter FIFO_DEPTH = 4,
     parameter BUS_WIDTH  = 8
-  )
-  (
-    input                   aclk,
-    input                   arstn,
-    output [(BUS_WIDTH*8)-1:0]  m_axis_tdata,
-    output                      m_axis_tvalid,
-    output                      m_axis_tlast,
-    input                       m_axis_tready,
-    input  [(BUS_WIDTH*8)-1:0]  s_axis_tdata,
-    input                       s_axis_tvalid,
-    input                       s_axis_tlast,
-    output                      s_axis_tready
-  );
-  
+) (
+    input                      aclk,
+    input                      arstn,
+    output [(BUS_WIDTH*8)-1:0] m_axis_tdata,
+    output                     m_axis_tvalid,
+    output                     m_axis_tlast,
+    input                      m_axis_tready,
+    input  [(BUS_WIDTH*8)-1:0] s_axis_tdata,
+    input                      s_axis_tvalid,
+    input                      s_axis_tlast,
+    output                     s_axis_tready
+);
+
   `include "util_helper_math.vh"
-  
+
   //index
   reg [clogb2(FIFO_DEPTH):0] index;
   reg [clogb2(FIFO_DEPTH):0] index_shift;
   reg [clogb2(FIFO_DEPTH):0] index_check;
-  
+
   //buffer
-  reg [(BUS_WIDTH*8)-1:0] reg_data_buffer[FIFO_DEPTH];
+  reg [(BUS_WIDTH*8)-1:0] reg_data_buffer[FIFO_DEPTH-1:0];
   reg [FIFO_DEPTH-1:0]    reg_valid_buffer  = 0;
   reg [FIFO_DEPTH-1:0]    reg_last_buffer   = 0;
-  
+
   // var: s_axis_tready
   // If any valid is 0, we are ready for data
   assign s_axis_tready = (~&reg_valid_buffer || m_axis_tready) & arstn;
-  
+
   // var: m_axis_tdata
   // assign output data as soon as its ready
-  assign m_axis_tdata   = reg_data_buffer[0];
+  assign m_axis_tdata  = reg_data_buffer[0];
 
   // var: m_axis_tvalid
   // assign output data as soon as its ready
-  assign m_axis_tvalid  = reg_valid_buffer[0];
+  assign m_axis_tvalid = reg_valid_buffer[0];
 
   // var: m_axis_tlast
   // assign output data as soon as its ready
-  assign m_axis_tlast   = reg_last_buffer[0];
-  
+  assign m_axis_tlast  = reg_last_buffer[0];
+
   //process data out of fifo
   always @(posedge aclk) begin
-    if(arstn == 1'b0) begin
+    if (arstn == 1'b0) begin
       reg_valid_buffer <= 0;
-      
-      for(index = 0; index < FIFO_DEPTH; index = index + 1) begin
+
+      for (index = 0; index < FIFO_DEPTH; index = index + 1) begin
         reg_data_buffer[index] <= 0;
       end
     end else begin
@@ -117,12 +116,12 @@ module axis_tiny_fifo #(
       reg_data_buffer[FIFO_DEPTH-1]  <= (~&reg_valid_buffer || m_axis_tready ? (s_axis_tvalid ? s_axis_tdata : 0) : reg_data_buffer[FIFO_DEPTH-1]);
       reg_valid_buffer[FIFO_DEPTH-1] <= (~&reg_valid_buffer || m_axis_tready ? s_axis_tvalid : reg_valid_buffer[FIFO_DEPTH-1]);
       reg_last_buffer[FIFO_DEPTH-1]  <= (~&reg_valid_buffer || m_axis_tready ? s_axis_tlast  : reg_last_buffer[FIFO_DEPTH-1]);
-      
+
       //NAND all valids lower then current register. This results in all data being shifted below and including that index.
       //if any have 0 for valid (no data) shift. Also shift if ready, since destination is ready to take data anyways.
-      for(index_shift = 1; index_shift < FIFO_DEPTH; index_shift = index_shift + 1) begin
-        for(index_check = 0; index_check < index_shift; index_check = index_check + 1) begin
-          if((m_axis_tready == 1'b1) || (reg_valid_buffer[index_check] == 1'b0)) begin
+      for (index_shift = 1; index_shift < FIFO_DEPTH; index_shift = index_shift + 1) begin
+        for (index_check = 0; index_check < index_shift; index_check = index_check + 1) begin
+          if ((m_axis_tready == 1'b1) || (reg_valid_buffer[index_check] == 1'b0)) begin
             reg_data_buffer[index_shift-1]  <= reg_data_buffer[index_shift];
             reg_valid_buffer[index_shift-1] <= reg_valid_buffer[index_shift];
             reg_last_buffer[index_shift-1]  <= reg_last_buffer[index_shift];
