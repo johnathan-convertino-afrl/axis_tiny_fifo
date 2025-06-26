@@ -1,5 +1,6 @@
 # AXIS TINY FIFO
 ### Simple single clock fifo
+---
 
 ![image](docs/manual/img/AFRL.png)
 
